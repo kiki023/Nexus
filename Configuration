@@ -1,0 +1,144 @@
+Nexus: Is an Open source Artifactory Repository/library
+       It is used to store and retrieve build artifacts
+       We can retrieve artifacts when needed
+
+JFrog: Is an  Artifactory Repository
+       It is used to store and retrieve build artifacts
+       Its paid for
+
+Amazon CodeArtifacts:
+
+maven:
+ mvn package  
+    /target
+    
+ mvn install
+     /target and
+    /mavenlocalrepo
+    /.m2/repository or /mavencustomlocalrepo
+ 
+ mvn sonar:sonar 
+        Execute sonarqube code quality report
+
+maven default lifecycle:  
+    goal: deploy       
+ mvn deploy: uploads the build artifacts to maven remote repository
+                jar/war/ear 
+    - validate
+    - compile
+    - test
+    - create package in target
+    - uploads packages into Nexus/JFrog
+Nexus directory structure:
+  bin 
+    binary files like    
+  lib 
+   jar and library files             
+  deploy  
+    uploaded artifacts
+  etc (conf)
+    Configuration files  
+      nexus-default.properties
+
+ Installation:
+ -------------
+  
+Maven - Configuration directory:
+     conf/setting.xml
+
+Tomcat - Configuration directory: 
+     conf/server.xml
+     conf/tomcat-users.xml
+
+sonarqube Configuration directory: 
+     /opt/sonarqube/conf/sonar.properties  
+     
+        userName  --- admin
+        Password      admin
+
+Nexus - Configuration directory:
+     /opt/nexus/etc/nexus-default.properties    
+  
+
+
+   54.89.142.136:8081 
+
+   54.89.142.136:8000
+
+   http://54.89.142.136:8000/
+
+userName  --- admin
+Password   admin123
+           admin@123
+
+maven builds and uploads to Nexus 
+  mavenlocalrepo is found in the maven server 
+     /target/app.war 
+  maven remote repo is found in Nexus 
+
+create remote repos in nexus:
+  http://54.89.142.136:8000/repository/boa-releases/
+  http://54.89.142.136:8000/repository/boa-snapshot/
+
+vi pom.xml 
+NexusTag:   <distributionManagement></distributionManagement> 
+   
+SonarQubeTag: <properties></properties>
+
+Nexus:
+          <distributionManagement>
+            <repository>
+              <id>nexus</id>
+              <name>Landmark Technologies Releases Nexus Repository</name>
+              <url>http://54.89.142.136:8000/repository/boa-releases/</url>
+            </repository>
+
+            <snapshotRepository>
+              <id>nexus</id>
+              <name>Landmark Technologies Snapshot Nexus Repository </name>
+              <url>http://54.89.142.136:8000/repository/boa-snapshot/</url>
+            </snapshotRepository>
+
+        </distributionManagement>
+
+
+401 Unauthorized 
+
+maven ---> nexus 
+          login 
+          repository
+
+
+
+
+ 
+ Maven SonarQube Integration:  mvn sonar:sonar
+ 
+   Properties tag:
+        <sonar.host.url>http://34.238.190.135:9000/</sonar.host.url>
+
+		<sonar.login>admin</sonar.login>
+		<sonar.password>admin</sonar.password>
+ 
+   <sonar.login>87cf8680d5d5880adb2848bf27ebd30f53c70e3c</sonar.login>
+   
+   
+   87cf8680d5d5880adb2848bf27ebd30f53c70e3c
+ 
+ Maven Nexus Integration:  mvn deploy
+   1a. create repository
+
+   1b. vi pom.xml and edit 
+   <distributionManagement> tag with repository details
+ 
+ 
+  2. conf/settings.xml
+        userName  --- admin
+        Password   admin123
+   vi /opt/maven/conf/settings.xml 
+    
+    <server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
